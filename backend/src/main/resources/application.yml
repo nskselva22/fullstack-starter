@@ -1,0 +1,46 @@
+server:
+  port: ${PORT:8080}
+  forward-headers-strategy: framework
+
+spring:
+  application:
+    name: fullstack-starter-backend
+
+  data:
+    mongodb:
+      # MongoDB Atlas connection string. Set MONGODB_URI env var in prod.
+      uri: ${MONGODB_URI:mongodb://localhost:27017/appdb}
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id:     ${GOOGLE_CLIENT_ID:}
+            client-secret: ${GOOGLE_CLIENT_SECRET:}
+            scope:
+              - email
+              - profile
+          # Uncomment to enable GitHub OAuth:
+          # github:
+          #   client-id:     ${GITHUB_CLIENT_ID:}
+          #   client-secret: ${GITHUB_CLIENT_SECRET:}
+          #   scope:
+          #     - read:user
+          #     - user:email
+
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+logging:
+  level:
+    org.springframework.security: INFO
